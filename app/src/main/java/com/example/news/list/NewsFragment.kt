@@ -16,7 +16,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NewsFragment(private val type: String): Fragment() {
+class NewsFragment: Fragment() {
 
     private val mNewsViewModel: NewsViewModel by viewModels()
 
@@ -25,13 +25,24 @@ class NewsFragment(private val type: String): Fragment() {
 
     private val adapter: NewsAdapter by lazy { NewsAdapter() }
     private val topNewsAdapter: TopNewsAdapter by lazy { TopNewsAdapter() }
-    var pageCount = 1
+
+    lateinit var newsType: String
+
+    fun newInstance(type: String): NewsFragment {
+        val args = Bundle()
+        args.putString("type", type)
+        val fragment = NewsFragment()
+        fragment.arguments = args
+        return fragment
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater ,
         container: ViewGroup? ,
         savedInstanceState: Bundle?
     ): View {
+
+        Log.d("On Create View", "")
 
         //Variables for pagination
         var previousTotal = 0
@@ -63,18 +74,17 @@ class NewsFragment(private val type: String): Fragment() {
                 _ , _ ->
         }.attach()
 
-        mNewsViewModel.getNews(pageCount)
-        mNewsViewModel.listOfNews.observe(viewLifecycleOwner,
+        newsType = arguments?.getString("type").toString()
+
+        mNewsViewModel.getNews(newsType)
+        mNewsViewModel.newsLiveData.observe(this,
             { news ->
-                news.forEach{
-                    if(it.type == type){
-                        adapter.setData(it)
-                        Log.d("Top", it.top)
-                        if(it.top == "1"){
-                            topNewsAdapter.setData(it)
-                        }
-                    }
-                }
+                adapter.setData(news)
+            }
+        )
+        mNewsViewModel.topNewsLiveData.observe(this, {
+            topNews ->
+                topNewsAdapter.setData(topNews)
                 //Sets visibility to GONE if no elements available for "Top news" view pager
                 if(topNewsAdapter.itemCount > 0){
                     topNewsViewPager.visibility = View.VISIBLE
@@ -83,8 +93,7 @@ class NewsFragment(private val type: String): Fragment() {
                     topNewsViewPager.visibility = View.GONE
                     tabLayout.visibility = View.GONE
                 }
-            }
-        )
+        })
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView , dx: Int , dy: Int) {
@@ -102,8 +111,7 @@ class NewsFragment(private val type: String): Fragment() {
                 if (!loading && totalItemCount - visibleItemCount
                     <= firstVisibleItem + visibleThreshold
                 ) {
-                    pageCount++
-                    mNewsViewModel.getNews(pageCount)
+                    mNewsViewModel.getNews(newsType)
                     loading = true
                 }
             }

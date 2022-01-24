@@ -12,9 +12,9 @@ class ViewPagerAdapter(activity: AppCompatActivity , private val itemsCount: Int
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
-            0 -> NewsFragment("strories")
-            1 -> NewsFragment("video")
-            else -> NewsFragment("favourites")
+            0 -> NewsFragment().newInstance("strories")
+            1 -> NewsFragment().newInstance("video")
+            else -> NewsFragment().newInstance("favourites")
         }
 
     }

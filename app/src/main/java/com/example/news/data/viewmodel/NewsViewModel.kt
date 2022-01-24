@@ -1,5 +1,6 @@
 package com.example.news.data.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,11 +15,30 @@ class NewsViewModel @Inject constructor(
     private val repository: Repository
 ): ViewModel() {
 
-    val listOfNews: MutableLiveData<List<News>> = MutableLiveData()
+    val newsLiveData: MutableLiveData<List<News>> = MutableLiveData()
+    val topNewsLiveData: MutableLiveData<List<News>> = MutableLiveData()
 
-   fun getNews(page: Int){
+    private var allNews = mutableListOf<News>()
+    private val specificTypeOfNews = mutableListOf<News>()
+    private val topNews = mutableListOf<News>()
+    private var pageCount = 1
+
+   fun getNews(type: String){
        viewModelScope.launch {
-           listOfNews.value = repository.getNews(page)
+           allNews.clear()
+           allNews.addAll(repository.getNews(pageCount))
+           allNews.forEach {
+               if(it.type == type){
+                   specificTypeOfNews.add(it)
+                   if(it.top == "1"){
+                       topNews.add(it)
+                   }
+               }
+           }
+           newsLiveData.value = specificTypeOfNews
+           Log.d("News live data", newsLiveData.value.toString())
+           topNewsLiveData.value = topNews
+           pageCount++
        }
    }
 }

@@ -9,7 +9,7 @@ import com.example.news.databinding.RowLayoutBinding
 
 class NewsAdapter:RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
 
-    private var newsList = mutableListOf<News>()
+    private var newsList = listOf<News>()
 
     class MyViewHolder(private val binding: RowLayoutBinding): RecyclerView.ViewHolder(binding.root){
 
@@ -41,8 +41,8 @@ class NewsAdapter:RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
         return newsList.size
     }
 
-    fun setData(news: News){
-        this.newsList.add(news)
+    fun setData(news: List<News>){
+        this.newsList = news
         notifyDataSetChanged()
     }
 
