@@ -17,6 +17,7 @@ class NewsAdapter:RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
 
         fun bind(news: News){
             binding.gameNews = news
+            binding.clickUrl.text = news.click_url.drop(8)
             binding.executePendingBindings()
             Glide.with(binding.root.context).load(news.img).into(binding.imageView)
         }

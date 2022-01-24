@@ -66,7 +66,6 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:autoLink="web"
-                android:text="@{topGameNews.click_url}"
                 android:textColor="@color/lightblue"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -107,10 +106,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:textSize="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/rounded_corner" />
+                app:srcCompat="@drawable/rounded_corner"
+                android:contentDescription="@string/top" />
 
             <TextView
                 android:id="@+id/top_label"
