@@ -1,6 +1,5 @@
 package com.example.news.data.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -36,7 +35,6 @@ class NewsViewModel @Inject constructor(
                }
            }
            newsLiveData.value = specificTypeOfNews
-           Log.d("News live data", newsLiveData.value.toString())
            topNewsLiveData.value = topNews
            pageCount++
        }

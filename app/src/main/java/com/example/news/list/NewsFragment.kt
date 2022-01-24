@@ -1,7 +1,6 @@
 package com.example.news.list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -41,8 +40,6 @@ class NewsFragment: Fragment() {
         container: ViewGroup? ,
         savedInstanceState: Bundle?
     ): View {
-
-        Log.d("On Create View", "")
 
         //Variables for pagination
         var previousTotal = 0
@@ -95,6 +92,7 @@ class NewsFragment: Fragment() {
                 }
         })
 
+        //Pagination
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView , dx: Int , dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
