@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.news.R
 import com.example.news.data.News
 import com.example.news.databinding.TopNewsLayoutBinding
 
@@ -18,8 +19,6 @@ class TopNewsAdapter: RecyclerView.Adapter<TopNewsAdapter.MyViewHolder>() {
             binding.topGameNews = news
             binding.executePendingBindings()
             Glide.with(binding.root.context).load(news.img).into(binding.imageView)
-            Log.d("News in bind", binding.topGameNews.toString())
-
         }
         companion object{
             fun from(parent: ViewGroup): MyViewHolder {

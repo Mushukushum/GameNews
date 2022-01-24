@@ -50,8 +50,8 @@
             <TextView
                 android:id="@+id/click_url"
                 android:layout_width="wrap_content"
-                android:layout_height="17dp"
-                android:layout_marginStart="8dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:autoLink="web"
@@ -59,7 +59,7 @@
                 android:maxLines="10"
                 android:text="@{gameNews.click_url}"
                 android:textColor="@color/lightblue"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title_text"
@@ -67,15 +67,17 @@
 
             <TextView
                 android:id="@+id/time"
-                android:layout_width="79dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="1dp"
                 android:text="@{gameNews.time}"
-                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/click_url"
+                app:layout_constraintStart_toEndOf="@+id/textView"
                 app:layout_constraintTop_toTopOf="@+id/click_url"
-                app:layout_constraintVertical_bias="0.058" />
+                app:layout_constraintVertical_bias="0.0" />
 
             <ImageView
                 android:id="@+id/image_view"
@@ -84,7 +86,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/imageview_for_news"
                 tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="1dp"
+                android:text="@string/minus"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/click_url"
+                app:layout_constraintTop_toTopOf="@+id/click_url" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
